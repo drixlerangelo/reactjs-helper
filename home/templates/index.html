@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Documentation Helper</title>
+</head>
+<body>
+    <div id="convo"></div>
+
+    <textarea id="prompt" onkeypress="submit(event)"></textarea>
+    <button id="submit">-></button>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <script>
+        var md = window.markdownit();
+        let history = JSON.parse(localStorage.getItem('history') || '[]');
+        let convo = [];
+        loadHistory();
+
+        function loadHistory() {
+            history.forEach(element => {
+                convo.push({
+                    role: 'human',
+                    message: element['question'],
+                });
+
+                convo.push({
+                    role: 'machine',
+                    message: formatResponse(element['answer'], element['metadata']),
+                });
+            });
+        }
+        function formatResponse(answer, metadata) {
+            let sources = '';
+            metadata['sources'].forEach(element => {
+                sources += '\n1. ' + element;
+            });
+
+            return `${answer}\n${sources}`;
+        }
+        function renderConvo() {
+            let convoElem = document.getElementById('convo');
+            convoElem.innerHTML = '';
+
+            let text = '';
+            convo.forEach(element => {
+                text += `role: ${element.role}\n\n${element.message}\n\n\n---\n\n`;
+            });
+
+            convoElem.innerHTML = md.render(text);
+        }
+        function submit(event) {
+            if (event.keyCode === 13){
+                event.preventDefault(); // Ensure it is only this code that runs
+                makeRequest();
+            }
+        }
+        async function makeRequest() {
+            let question = document.getElementById('prompt').value;
+            document.getElementById('prompt').value = '';
+
+            convo.push({
+                role: 'human',
+                message: question,
+            });
+            renderConvo();
+
+            let response = await fetch('/ask/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    q: question,
+                    h: history,
+                })
+            });
+
+            let data = await response.json();
+            data = data.data;
+            console.log(data)
+
+            convo.push({
+                role: 'machine',
+                message: formatResponse(data['answer'], data['metadata']),
+            });
+
+            history.push(data);
+            renderConvo();
+        }
+
+        document.getElementById('submit').addEventListener('click', makeRequest);
+    </script>
+</body>
+</html>
