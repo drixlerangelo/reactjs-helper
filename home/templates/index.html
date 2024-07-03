@@ -3,19 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React Documentation Helper</title>
+    <title>New chat - React Documentation Helper</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            margin-right: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #4caf50;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #666;
+        }
+    </style>
 </head>
 <body>
-    <div id="convo"></div>
+    <!--
+    // v0 by Vercel.
+    // https://v0.dev/t/EhPMzb2Swad
+    -->
 
-    <textarea id="prompt" onkeypress="submit(event)"></textarea>
-    <button id="submit">-></button>
-    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <div class="bg-[#0a0a0a] bg-[#f0f0f0] overflow-y-auto h-screen flex flex-col">
+        <header class="bg-[#1a1a1a] bg-[#0a0a0a] px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <div class="bg-[#2c2c2c] bg-[#0e0e0e] rounded-full w-8 h-8 flex items-center justify-center">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-[#8c8c8c] text-[#5c5c5c]"
+                data-darkreader-inline-stroke=""
+                style="--darkreader-inline-stroke: currentColor;"
+            >
+                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+            </svg>
+            </div>
+            <h1 class="text-lg font-medium text-[#d0d0d0] text-[#b0b0b0]">React Documentation Helper</h1>
+        </div>
+        <!-- <div class="flex items-center gap-4">
+            <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-full w-8 h-8">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-[#8c8c8c] text-[#5c5c5c]"
+                data-darkreader-inline-stroke=""
+                style="--darkreader-inline-stroke: currentColor;"
+            >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            </button>
+            <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-full w-8 h-8">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-5 h-5 text-[#8c8c8c] text-[#5c5c5c]"
+                data-darkreader-inline-stroke=""
+                style="--darkreader-inline-stroke: currentColor;"
+            >
+                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            </button>
+        </div> -->
+        </header>
+        <div class="flex-1 flex top-4 overflow-auto ">
+            <div class="flex flex-col bg-[#1a1a1a] bg-[#0a0a0a] border-r border-[#2c2c2c] border-[#0e0e0e] w-64">
+                <div className="items-center justify-between mt-4 text-sm text-[#f1f1f1] flex">
+                    <div class="py-4 px-3">
+                        <div class="w-full h-2 bg-[#2d2d2d] rounded-full">
+                            <div class="w-1/12 h-2 bg-[#ff6b6b] rounded-full"></div>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-2 text-[#d0d0d0]">Storage Usage: 1%</div>
+                </div>
+
+                <div class="p-4">
+                    <form>
+                    <input
+                        class="flex w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 h-8 bg-[#2d2d2d] text-[#f1f1f1] placeholder:text-[#a0a0a0]"
+                        placeholder="Search"
+                    />
+                    </form>
+                </div>
+                <div
+                    role="tablist"
+                    aria-orientation="horizontal"
+                    class="h-9 items-center justify-center rounded-lg bg-muted p-4 text-muted-foreground flex"
+                    tabindex="0"
+                    data-orientation="horizontal"
+                    style="outline: none; --darkreader-inline-outline: initial;"
+                    data-darkreader-inline-outline=""
+                    >
+                    <button
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="radix-:r0:-content-contacts"
+                        data-state="inactive"
+                        id="radix-:r0:-trigger-contacts"
+                        class="flex items-center justify-center whitespace-nowrap px-3 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow flex-1 py-2 text-[#8c8c8c] text-[#5c5c5c] font-medium hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] rounded-lg"
+                        tabindex="-1"
+                        data-orientation="horizontal"
+                        data-radix-collection-item=""
+                    >
+                        <span class="flex-1" >New topic</span>
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="h-4 w-4 text-[#f1f1f1] order=last mx-3"
+                        data-darkreader-inline-stroke=""
+                        style="--darkreader-inline-stroke: currentColor;"
+                        >
+                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div
+                    data-state="active"
+                    data-orientation="horizontal"
+                    role="tabpanel"
+                    aria-labelledby="radix-:r3:-trigger-conversations"
+                    id="radix-:r3:-content-conversations"
+                    tabindex="0"
+                    class="overflow-y-scroll flex-1 bg-cover mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    style="animation-duration: 0s;"
+                >
+                    <div class="grid gap-2">
+                        <a class="flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2" href="#">
+                            <div class="max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0]">
+                                <div class="truncate ">
+                                    Can incidunt ab impedit consequuntur fugit fuga rem culpa nulla voluptas dolores placeat, minus corrupti illum.
+                                </div>
+                            </div>
+
+                            <div class="order-last">
+                                <div class="flex flex-row-reverse justify-between gap-4">
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                        aria-controls="radix-:r0:-content-contacts"
+                                        data-state="inactive"
+                                        id="radix-:r0:-trigger-contacts"
+                                        class=""
+                                        tabindex="-1"
+                                        data-orientation="horizontal"
+                                        data-radix-collection-item=""
+                                    >
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="h-4 w-4 text-[#f1f1f1] mr-1"
+                                        data-darkreader-inline-stroke=""
+                                        style="--darkreader-inline-stroke: currentColor;"
+                                        >
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        </svg>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                        aria-controls="radix-:r0:-content-contacts"
+                                        data-state="inactive"
+                                        id="radix-:r0:-trigger-contacts"
+                                        class=""
+                                        tabindex="-1"
+                                        data-orientation="horizontal"
+                                        data-radix-collection-item=""
+                                    >
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="h-4 w-4 text-[#f1f1f1]"
+                                        data-darkreader-inline-stroke=""
+                                        style="--darkreader-inline-stroke: currentColor;"
+                                        >
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2" href="#">
+                            <div class="max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0]">
+                                <div class="truncate ">
+                                    Nostrum perferendis pariatur aspernatur veniam facilis.
+                                </div>
+                            </div>
+
+                            <div class="order-last">
+                                <div class="flex flex-row-reverse justify-between gap-4">
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                        aria-controls="radix-:r0:-content-contacts"
+                                        data-state="inactive"
+                                        id="radix-:r0:-trigger-contacts"
+                                        class=""
+                                        tabindex="-1"
+                                        data-orientation="horizontal"
+                                        data-radix-collection-item=""
+                                    >
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="h-4 w-4 text-[#f1f1f1]"
+                                        data-darkreader-inline-stroke=""
+                                        style="--darkreader-inline-stroke: currentColor;"
+                                        >
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        </svg>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                        aria-controls="radix-:r0:-content-contacts"
+                                        data-state="inactive"
+                                        id="radix-:r0:-trigger-contacts"
+                                        class=""
+                                        tabindex="-1"
+                                        data-orientation="horizontal"
+                                        data-radix-collection-item=""
+                                    >
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="h-4 w-4 text-[#f1f1f1]"
+                                        data-darkreader-inline-stroke=""
+                                        style="--darkreader-inline-stroke: currentColor;"
+                                        >
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2" href="#">
+                            <div class="max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0]">
+                                <div class="truncate ">
+                                    Eum eveniet cum culpa est adipisci voluptatum assumenda quas perferendis rem.
+                                </div>
+                            </div>
+
+                            <div class="order-last">
+                                <div class="flex flex-row-reverse justify-between gap-4">
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                        aria-controls="radix-:r0:-content-contacts"
+                                        data-state="inactive"
+                                        id="radix-:r0:-trigger-contacts"
+                                        class=""
+                                        tabindex="-1"
+                                        data-orientation="horizontal"
+                                        data-radix-collection-item=""
+                                    >
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="h-4 w-4 text-[#f1f1f1]"
+                                        data-darkreader-inline-stroke=""
+                                        style="--darkreader-inline-stroke: currentColor;"
+                                        >
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        </svg>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        role="tab"
+                                        aria-selected="false"
+                                        aria-controls="radix-:r0:-content-contacts"
+                                        data-state="inactive"
+                                        id="radix-:r0:-trigger-contacts"
+                                        class=""
+                                        tabindex="-1"
+                                        data-orientation="horizontal"
+                                        data-radix-collection-item=""
+                                    >
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="h-4 w-4 text-[#f1f1f1]"
+                                        data-darkreader-inline-stroke=""
+                                        style="--darkreader-inline-stroke: currentColor;"
+                                        >
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="flex-1 bg-[#0a0a0a] text-[#d0d0d0] bg-[#0a0a0a] text-[#b0b0b0] flex flex-col">
+                <div class="border-b border-[#1a1a1a] border-[#0e0e0e] p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="grid gap-0.5">
+                            <p class="text-sm font-medium leading-none">New chat</p>
+                        </div>
+                    </div>
+                    <!-- <div class="flex items-center gap-1">
+                        <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-full w-8 h-8">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4 text-[#8c8c8c] text-[#5c5c5c]"
+                            data-darkreader-inline-stroke=""
+                            style="--darkreader-inline-stroke: currentColor;"
+                        >
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        </button>
+                        <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground rounded-full w-8 h-8">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4 text-[#8c8c8c] text-[#5c5c5c]"
+                            data-darkreader-inline-stroke=""
+                            style="--darkreader-inline-stroke: currentColor;"
+                        >
+                            <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"></path>
+                            <rect x="2" y="6" width="14" height="12" rx="2"></rect>
+                        </svg>
+                        </button>
+                    </div> -->
+                </div>
+
+                <div class="border-t border-[#1a1a1a] border-[#0e0e0e]">
+                    <form class="flex w-full max-w-xl mx-auto items-center space-x-2 p-3 justify-center">
+                        <textarea
+                            class="flex h-fit text-md w-full border px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1 bg-[#1a1a1a] bg-[#0e0e0e] border-[#2c2c2c] border-[#0e0e0e] text-[#d0d0d0] text-[#b0b0b0] focus:border-[#4c4c4c] focus:border-[#1e1e1e] rounded-lg"
+                            id="prompt"
+                            placeholder="Type your message..."
+                            autocomplete="off"
+                        ></textarea>
+                        <a
+                        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-full w-8 h-8 bg-[#1a1a1a] bg-[#0e0e0e] text-[#8c8c8c] text-[#5c5c5c] hover:bg-[#2c2c2c] hover:bg-[#1e1e1e]"
+                        id="submit"
+                        style="text-decoration: none;"
+                        >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4"
+                            data-darkreader-inline-stroke=""
+                            style="--darkreader-inline-stroke: currentColor;"
+                        >
+                            <path d="m22 2-7 20-4-9-9-4Z"></path>
+                            <path d="M22 2 11 13"></path>
+                        </svg>
+                        </a>
+                    </form>
+                </div>
+
+                <div class="flex-1 p-4 flex flex-col gap-4 place-self-center w-2/3 items-center text-xl overflow-y-scroll">
+                    <div class="grid gap-4 p-3 w-1/2" id="convo"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <script>
         var md = window.markdownit();
         let history = JSON.parse(localStorage.getItem('history') || '[]');
         let convo = [];
+        let loaderElem = null;
+        const convoElem = document.getElementById('convo');
         loadHistory();
+        createLoaderElem();
+
+        function createLoaderElem() {
+            const elem = document.createElement('div');
+            elem.id = 'response-loader';
+            elem.className = 'animate-pulse flex min-h-10 w-1/2 max-w-[65%] flex-col gap-2 rounded-full px-4 py-2 text-md bg-[#2d2d2d] text-[#f1f1f1]';
+            loaderElem = elem;
+        }
+
+        function createUserTextElem(text) {
+            const elem = document.createElement('div');
+            elem.className = 'flex w-max max-w-[65%] flex-col gap-2 rounded-full px-4 py-2 text-md ml-auto bg-[#55efc4] text-[#1a1b1e]';
+            elem.innerText = text;
+            return elem;
+        }
+
+        function createAgentTextElem(text) {
+            const elem = document.createElement('div');
+            elem.className = 'flex h-min w-1/2 max-w-[60%] flex-col gap-2 rounded-full px-4 py-2 bg-[#2d2d2d] text-[#f1f1f1]';
+            elem.innerText = text;
+            return elem;
+        }
 
         function loadHistory() {
             history.forEach(element => {
@@ -30,6 +522,7 @@
                 });
             });
         }
+
         function formatResponse(answer, metadata) {
             let sources = '';
             metadata['sources'].forEach(element => {
@@ -38,32 +531,26 @@
 
             return `${answer}\n${sources}`;
         }
-        function renderConvo() {
-            let convoElem = document.getElementById('convo');
-            convoElem.innerHTML = '';
 
-            let text = '';
-            convo.forEach(element => {
-                text += `role: ${element.role}\n\n${element.message}\n\n\n---\n\n`;
-            });
-
-            convoElem.innerHTML = md.render(text);
-        }
         function submit(event) {
+            event.preventDefault(); // Ensure it is only this code that runs
             if (event.keyCode === 13){
-                event.preventDefault(); // Ensure it is only this code that runs
                 makeRequest();
             }
         }
+
         async function makeRequest() {
             let question = document.getElementById('prompt').value;
             document.getElementById('prompt').value = '';
+
+            convoElem.prepend(createUserTextElem(question));
+
+            convoElem.prepend(loaderElem);
 
             convo.push({
                 role: 'human',
                 message: question,
             });
-            renderConvo();
 
             let response = await fetch('/ask/', {
                 method: 'POST',
@@ -78,7 +565,11 @@
 
             let data = await response.json();
             data = data.data;
-            console.log(data)
+
+            convoElem.prepend(createAgentTextElem(data['answer']));
+
+            document.getElementById('response-loader').remove();
+            createLoaderElem();
 
             convo.push({
                 role: 'machine',
@@ -86,7 +577,6 @@
             });
 
             history.push(data);
-            renderConvo();
         }
 
         document.getElementById('submit').addEventListener('click', makeRequest);
