@@ -18,7 +18,10 @@ def ask(request: HttpRequest) -> JsonResponse:
     return JsonResponse({
         'data': converse.run(
             question,
-            [(exchange['question'], exchange['answer']) for exchange in history]
+            [
+                (exchange['question'], exchange['answer'])
+                for exchange in history
+            ]
         ),
         'message': 'Success',
         'success': True,

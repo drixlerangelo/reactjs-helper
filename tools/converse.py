@@ -56,6 +56,22 @@ def run(query: str, history: List[Tuple[str, str]] = []) -> Dict:
         return_source_documents=True,
     )
 
+    # system_template = "You are a helpful assistant that translates {input_language} to {output_language}."
+    # human_template = "Translate the text below and don't show any other response: \n{text}"
+
+    # chat_prompt = ChatPromptTemplate.from_messages([
+    #     ('system', system_template),
+    #     ('human', human_template),
+    # ])
+
+    # messages = chat_prompt.format_messages(
+    #     input_language=supported_langs[source_lang],
+    #     output_language=supported_langs[target_lang],
+    #     text=re.sub(r'\s+', ' ', request.GET['text'].strip())
+    # )
+
+    # result = chat_model.invoke(messages)
+
     result = qa_chain.invoke({
         "question": query,
         "chat_history": history,

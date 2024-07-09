@@ -1,0 +1,128 @@
+2024-06-29 06:08:28,089 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 06:08:28,093 INFO supervisord started with pid 7
+2024-06-29 06:08:29,095 INFO spawned: 'django' with pid 8
+2024-06-29 06:08:30,096 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-29 06:09:44,846 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 06:09:44,851 INFO supervisord started with pid 7
+2024-06-29 06:09:45,854 INFO spawned: 'django' with pid 8
+2024-06-29 06:09:46,856 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-29 06:12:55,131 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 06:12:55,135 INFO supervisord started with pid 7
+2024-06-29 06:12:56,137 INFO spawned: 'django' with pid 8
+2024-06-29 06:12:57,139 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-29 06:19:07,467 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 06:19:07,472 INFO supervisord started with pid 7
+2024-06-29 06:19:08,474 INFO spawned: 'django' with pid 8
+2024-06-29 06:19:09,476 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-29 12:53:04,074 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 12:53:04,086 INFO supervisord started with pid 7
+2024-06-29 12:53:05,091 INFO spawned: 'django' with pid 8
+2024-06-29 12:53:06,094 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-29 12:53:38,884 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 12:53:38,891 INFO supervisord started with pid 7
+2024-06-29 12:53:39,893 INFO spawned: 'django' with pid 8
+2024-06-29 12:53:40,895 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-29 13:05:19,172 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-29 13:05:19,177 INFO supervisord started with pid 7
+2024-06-29 13:05:20,905 INFO spawned: 'django' with pid 8
+2024-06-29 13:05:21,907 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-30 05:53:32,435 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-30 05:53:32,439 INFO supervisord started with pid 7
+2024-06-30 05:53:33,443 INFO spawned: 'django' with pid 8
+2024-06-30 05:53:34,444 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-30 05:55:58,452 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-30 05:55:58,455 INFO supervisord started with pid 7
+2024-06-30 05:55:59,458 INFO spawned: 'django' with pid 8
+2024-06-30 05:56:00,460 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-06-30 08:56:06,722 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-06-30 08:56:06,728 INFO supervisord started with pid 7
+2024-06-30 08:56:07,730 INFO spawned: 'django' with pid 8
+2024-06-30 08:56:08,732 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-01 11:06:52,957 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-01 11:06:52,979 INFO supervisord started with pid 7
+2024-07-01 11:06:53,982 INFO spawned: 'django' with pid 8
+2024-07-01 11:06:54,988 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-01 12:52:49,743 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-01 12:52:49,757 INFO supervisord started with pid 7
+2024-07-01 12:52:50,777 INFO spawned: 'django' with pid 8
+2024-07-01 12:52:51,784 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-02 16:37:56,245 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-02 16:37:56,249 INFO supervisord started with pid 7
+2024-07-02 16:37:57,252 INFO spawned: 'django' with pid 14
+2024-07-02 16:37:58,253 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 12:17:44,175 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 12:17:44,201 INFO supervisord started with pid 7
+2024-07-03 12:17:45,203 INFO spawned: 'django' with pid 8
+2024-07-03 12:17:46,209 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 13:24:47,158 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 13:24:47,161 INFO supervisord started with pid 7
+2024-07-03 13:24:48,909 INFO spawned: 'django' with pid 8
+2024-07-03 13:24:49,911 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 13:34:35,059 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 13:34:35,062 INFO supervisord started with pid 7
+2024-07-03 13:34:36,065 INFO spawned: 'django' with pid 14
+2024-07-03 13:34:37,067 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:09:28,651 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:09:28,656 INFO supervisord started with pid 7
+2024-07-03 14:09:29,658 INFO spawned: 'django' with pid 8
+2024-07-03 14:09:30,660 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:18:19,138 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:18:19,154 INFO supervisord started with pid 7
+2024-07-03 14:18:20,156 INFO spawned: 'django' with pid 8
+2024-07-03 14:18:21,158 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:26:00,347 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:26:00,351 INFO supervisord started with pid 7
+2024-07-03 14:26:01,353 INFO spawned: 'django' with pid 8
+2024-07-03 14:26:02,355 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:26:40,583 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:26:40,586 INFO supervisord started with pid 8
+2024-07-03 14:26:41,589 INFO spawned: 'django' with pid 9
+2024-07-03 14:26:42,591 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:32:23,985 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:32:23,988 INFO supervisord started with pid 7
+2024-07-03 14:32:24,990 INFO spawned: 'django' with pid 8
+2024-07-03 14:32:26,542 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:34:42,331 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:34:42,334 INFO supervisord started with pid 7
+2024-07-03 14:34:43,336 INFO spawned: 'django' with pid 8
+2024-07-03 14:34:44,799 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:35:55,714 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:35:55,718 INFO supervisord started with pid 7
+2024-07-03 14:35:56,719 INFO spawned: 'django' with pid 8
+2024-07-03 14:35:58,682 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:37:18,203 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:37:18,206 INFO supervisord started with pid 7
+2024-07-03 14:37:19,209 INFO spawned: 'django' with pid 8
+2024-07-03 14:37:20,211 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:39:17,619 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:39:17,622 INFO supervisord started with pid 7
+2024-07-03 14:39:18,624 INFO spawned: 'django' with pid 8
+2024-07-03 14:39:20,618 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 14:58:49,068 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 14:58:49,072 INFO supervisord started with pid 7
+2024-07-03 14:58:50,074 INFO spawned: 'django' with pid 8
+2024-07-03 14:58:52,055 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 15:04:14,262 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 15:04:14,266 INFO supervisord started with pid 7
+2024-07-03 15:04:15,268 INFO spawned: 'django' with pid 8
+2024-07-03 15:04:16,270 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-03 15:16:34,525 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-03 15:16:34,529 INFO supervisord started with pid 7
+2024-07-03 15:16:35,531 INFO spawned: 'django' with pid 8
+2024-07-03 15:16:36,533 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-05 01:13:49,930 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-05 01:13:49,954 INFO supervisord started with pid 7
+2024-07-05 01:13:52,364 INFO spawned: 'django' with pid 8
+2024-07-05 01:13:53,365 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-05 09:16:45,753 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-05 09:16:45,766 INFO supervisord started with pid 7
+2024-07-05 09:16:46,769 INFO spawned: 'django' with pid 8
+2024-07-05 09:16:47,771 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-05 09:25:16,070 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-05 09:25:16,074 INFO supervisord started with pid 7
+2024-07-05 09:25:17,076 INFO spawned: 'django' with pid 8
+2024-07-05 09:25:19,047 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-07-07 12:40:37,419 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-07-07 12:40:37,459 INFO supervisord started with pid 7
+2024-07-07 12:40:38,463 INFO spawned: 'django' with pid 8
+2024-07-07 12:40:39,473 INFO success: django entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

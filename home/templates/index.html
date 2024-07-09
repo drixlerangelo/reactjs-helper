@@ -175,6 +175,13 @@
                                     Can incidunt ab impedit consequuntur fugit fuga rem culpa nulla voluptas dolores placeat, minus corrupti illum.
                                 </div>
                             </div>
+                        </a>
+                        <!-- <a class="flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2" href="#">
+                            <div class="max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0]">
+                                <div class="truncate ">
+                                    Can incidunt ab impedit consequuntur fugit fuga rem culpa nulla voluptas dolores placeat, minus corrupti illum.
+                                </div>
+                            </div>
 
                             <div class="order-last">
                                 <div class="flex flex-row-reverse justify-between gap-4">
@@ -383,7 +390,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -532,9 +539,9 @@
             return `${answer}\n${sources}`;
         }
 
-        function submit(event) {
+        function checkForEnter(event) {
             event.preventDefault(); // Ensure it is only this code that runs
-            if (event.keyCode === 13){
+            if (event.keyCode === 13 && event.ctrlKey) {
                 makeRequest();
             }
         }
@@ -580,6 +587,7 @@
         }
 
         document.getElementById('submit').addEventListener('click', makeRequest);
+        document.getElementById('prompt').addEventListener('keyup', checkForEnter);
     </script>
 </body>
 </html>
