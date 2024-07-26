@@ -498,20 +498,21 @@
         function createLoaderElem() {
             const elem = document.createElement('div');
             elem.id = 'response-loader';
-            elem.className = 'animate-pulse flex min-h-10 w-1/2 max-w-[65%] flex-col gap-2 rounded-full px-4 py-2 text-md bg-[#2d2d2d] text-[#f1f1f1]';
+            elem.className = 'animate-pulse flex min-h-10 w-1/2 max-w-[65%] flex-col gap-2 rounded-lg px-4 py-2 text-md bg-[#2d2d2d] text-[#f1f1f1]';
             loaderElem = elem;
         }
 
         function createUserTextElem(text) {
             const elem = document.createElement('div');
-            elem.className = 'flex w-max max-w-[65%] flex-col gap-2 rounded-full px-4 py-2 text-md ml-auto bg-[#55efc4] text-[#1a1b1e]';
+            elem.className = 'flex max-w-[95%] flex-col gap-2 rounded-lg px-4 py-2 text-md ml-auto bg-[#55efc4] text-[#1a1b1e]';
             elem.innerText = text;
             return elem;
         }
 
         function createAgentTextElem(text) {
             const elem = document.createElement('div');
-            elem.className = 'flex h-min w-1/2 max-w-[60%] flex-col gap-2 rounded-full px-4 py-2 bg-[#2d2d2d] text-[#f1f1f1]';
+            elem.className = 'flex h-min max-w-[95%] flex-col gap-2 rounded-lg px-4 py-2 bg-[#2d2d2d] text-[#f1f1f1]';
+            // elem.innerHTML = md.render(text);
             elem.innerText = text;
             return elem;
         }

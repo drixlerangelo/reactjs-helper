@@ -1,17 +1,23 @@
 services:
     app:
+        container_name: react-helper
         build:
             context: .
             dockerfile: Dockerfile
             args:
                 - DJANGO_ENV=development
         environment:
-            - SENTENCE_TRANSFORMERS_HOME=/app/.cache/
-            - TRANSFORMERS_CACHE=/app/.cache/
-            - HF_HOME=/app/.cache/
-            - TRANSFORMERS_CACHE=/app/.cache/
-        ports:
-            - '${APP_PORT:-80}:80'
+            SENTENCE_TRANSFORMERS_HOME: '/app/.cache/'
+            TRANSFORMERS_CACHE: '/app/.cache/'
+            HF_HOME: '/app/.cache/'
+            VIRTUAL_HOST: react-helper
         volumes:
             - './:/app'
+        networks:
+            - shared
         restart: always
+
+networks:
+    shared:
+        external: true
+        name: shared
