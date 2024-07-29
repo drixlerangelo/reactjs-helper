@@ -132,13 +132,13 @@
                         aria-selected="false"
                         aria-controls="radix-:r0:-content-contacts"
                         data-state="inactive"
-                        id="radix-:r0:-trigger-contacts"
+                        id="new-topic"
                         class="flex items-center justify-center whitespace-nowrap px-3 text-sm ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow flex-1 py-2 text-[#8c8c8c] text-[#5c5c5c] font-medium hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] rounded-lg"
                         tabindex="-1"
                         data-orientation="horizontal"
                         data-radix-collection-item=""
                     >
-                        <span class="flex-1" >New topic</span>
+                        <span class="flex-1">New topic</span>
                         <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -168,14 +168,7 @@
                     class="overflow-y-scroll flex-1 bg-cover mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     style="animation-duration: 0s;"
                 >
-                    <div class="grid gap-2">
-                        <a class="flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2" href="#">
-                            <div class="max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0]">
-                                <div class="truncate ">
-                                    Can incidunt ab impedit consequuntur fugit fuga rem culpa nulla voluptas dolores placeat, minus corrupti illum.
-                                </div>
-                            </div>
-                        </a>
+                    <div class="grid gap-2" id="past-chats">
                         <!-- <a class="flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2" href="#">
                             <div class="max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0]">
                                 <div class="truncate ">
@@ -487,11 +480,15 @@
     </div>
 
     <script>
-        var md = window.markdownit();
+        console.log(localStorage.getItem('history'));
         let history = JSON.parse(localStorage.getItem('history') || '[]');
+
         let convo = [];
         let loaderElem = null;
+        let currentChat = '';
+        const md = window.markdownit();
         const convoElem = document.getElementById('convo');
+        const pastChats = document.getElementById('past-chats');
         loadHistory();
         createLoaderElem();
 
@@ -518,16 +515,31 @@
         }
 
         function loadHistory() {
-            history.forEach(element => {
-                convo.push({
-                    role: 'human',
-                    message: element['question'],
-                });
+            pastChats.innerHTML = '';
+            history.map((chat) => {
+                // {
+                //     key,
+                //     title: metadata.title,
+                //     messages: [
+                //         {
+                //             question: human,
+                //             answer: ai,
+                //             metadata,
+                //         },
+                //     ]
+                // }
+                let chatLink = document.createElement('a');
+                chatLink.className = 'flex justify-between items-center gap-4 p-3 rounded-lg hover:bg-[#2c2c2c] hover:bg-[#0e0e0e] mx-2';
+                chatLink.href = `#${chat.key}`;
+                chatLink.title = chat.title;
+                chatLink.onclick = loadConvo(chat);
 
-                convo.push({
-                    role: 'machine',
-                    message: formatResponse(element['answer'], element['metadata']),
-                });
+                let chatBox = document.createElement('div');
+                chatBox.className = 'max-w-32 text-sm font-medium leading-none text-[#d0d0d0] text-[#b0b0b0] truncate';
+                chatBox.innerText = chat.title;
+
+                chatLink.append(chatBox);
+                pastChats.append(chatLink);
             });
         }
 
@@ -560,6 +572,9 @@
                 message: question,
             });
 
+            chats = history.filter(chat => chat.key === currentChat);
+            messages = chats.length > 0 ? chats[0].messages : [];
+
             let response = await fetch('/ask/', {
                 method: 'POST',
                 headers: {
@@ -567,7 +582,7 @@
                 },
                 body: JSON.stringify({
                     q: question,
-                    h: history,
+                    h: messages,
                 })
             });
 
@@ -579,15 +594,94 @@
             document.getElementById('response-loader').remove();
             createLoaderElem();
 
+            metadata = data['metadata'];
+
             convo.push({
-                role: 'machine',
-                message: formatResponse(data['answer'], data['metadata']),
+                role: 'ai',
+                message: formatResponse(data['answer'], metadata),
             });
 
-            history.push(data);
+            saveToHistory(metadata['key'], question, data['answer'], metadata);
+            setCurrentChat(metadata['key']);
+        }
+
+        function saveToHistory(key, human, ai, metadata) {
+            if (currentChat === '' && metadata.title) {
+                sources = metadata.sources;
+                history.push({
+                    key,
+                    title: metadata.title,
+                    messages: [
+                        {
+                            question: human,
+                            answer: ai,
+                            metadata: { sources },
+                        },
+                    ]
+                });
+            } else if (currentChat !== '') {
+                history.map((chat) => {
+                    if (chat.key !== currentChat) {
+                        return chat;
+                    }
+
+                    sources = metadata.sources;
+                    chat.messages.push({
+                        question: human,
+                        answer: ai,
+                        metadata: { sources },
+                    });
+
+                    if (chat.title === 'Introduction') {
+                        chat.title = metadata.title;
+                    }
+                });
+            }
+
+            localStorage.setItem('history', JSON.stringify(history));
+            loadHistory();
+        }
+
+        function setCurrentChat(key) {
+            if (currentChat !== '') {
+                return;
+            }
+
+            currentChat = key;
+        }
+
+        function loadConvo(chat) {
+            return () => {
+                console.log(chat)
+                if (chat === null) {
+                    currentChat = '';
+                    convoElem.innerHTML = '';
+                    convo = [];
+                    location.href = '#';
+                    return;
+                }
+
+                currentChat = chat.key;
+                convoElem.innerHTML = '';
+                chat.messages.map(message => {
+                    convo.push({
+                        role: 'human',
+                        message: message.question,
+                    });
+                    convoElem.prepend(createUserTextElem(message.question));
+
+                    convo.push({
+                        role: 'ai',
+                        // message: formatResponse(message.answer, chat.metadata),
+                        message: message.answer,
+                    });
+                    convoElem.prepend(createAgentTextElem(message.answer));
+                });
+            };
         }
 
         document.getElementById('submit').addEventListener('click', makeRequest);
+        document.getElementById('new-topic').addEventListener('click', loadConvo(null));
         document.getElementById('prompt').addEventListener('keyup', checkForEnter);
     </script>
 </body>

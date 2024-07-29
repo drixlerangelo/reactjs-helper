@@ -13,15 +13,16 @@ def index(request: HttpRequest) -> HttpResponse:
 def ask(request: HttpRequest) -> JsonResponse:
     params = json.loads(request.body)
     question = params['q']
-    history = params['h']
+    history = []
+
+    for exchange in params['h']:
+        history.append(('human', exchange['question']))
+        history.append(('ai', exchange['answer']))
 
     return JsonResponse({
         'data': converse.run(
             question,
-            [
-                (exchange['question'], exchange['answer'])
-                for exchange in history
-            ]
+            history,
         ),
         'message': 'Success',
         'success': True,

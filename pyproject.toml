@@ -20,6 +20,7 @@ sentence-transformers = "^2.7.0"
 torch = { version = "^2.3.0", source="torch"}
 torchaudio = { version = "^2.3.0", source="torch"}
 torchvision = { version = "^0.18.0", source="torch"}
+langchain-huggingface = "^0.0.3"
 
 [[tool.poetry.source]]
 name = "torch"
