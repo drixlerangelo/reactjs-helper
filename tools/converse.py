@@ -12,10 +12,14 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 # from langchain_google_vertexai import VertexAIEmbeddings
 from langchain_openai import ChatOpenAI
 # from langchain_openai import OpenAIEmbeddings
-from langchain.chains.conversational_retrieval.base \
-    import ConversationalRetrievalChain
-from langchain_core.prompts import MessagesPlaceholder
-from langchain_core.messages import SystemMessage
+from langchain.chains import (
+        create_history_aware_retriever,
+        create_retrieval_chain,
+    )
+from langchain.chains.combine_documents import create_stuff_documents_chain
+
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import SystemMessage, AIMessage, HumanMessage
 from core import settings
 from typing import List, Dict, Tuple
 from textwrap import dedent
@@ -47,12 +51,12 @@ def run(query: str, history: List[Tuple[str, str]] = []) -> Dict:
         Title: <title>
 
 
-        Example 1 (Input: "Hi!"):
-        Hello, I am Rhea! I specialize in React.js. At your service!
+        Example 1 (Human: "Hi!"):
+        AI: Hello, I am Rhea! I specialize in React.js. At your service!
         Title: Introduction
 
-        Example 2 (Input: "Create a quick start to React"):
-        You can by creating this page:
+        Example 2 (Human: "Create a quick start to React"):
+        AI: You can by creating this page:
         ```jsx
         function MyButton() {
         return (
@@ -73,8 +77,8 @@ def run(query: str, history: List[Tuple[str, str]] = []) -> Dict:
         ```
         Title: Quick Start in React.js
 
-        Example 3 (Input: "Why is the sky blue?"):
-        IDK
+        Example 3 (Human: "Why is the sky blue?"):
+        AI: IDK
         Title: N/A
         """)
 
@@ -118,31 +122,65 @@ def run(query: str, history: List[Tuple[str, str]] = []) -> Dict:
         allow_dangerous_deserialization=True,
     )
 
-    qa_chain = ConversationalRetrievalChain.from_llm(
-        llm=chat_model,
-        retriever=vectorstore.as_retriever(
-            search_kwargs={"k": 10}
-        ),
-        return_source_documents=True,
+    retriever = vectorstore.as_retriever()
+
+    # Contextualize question
+    contextualize_q_system_prompt = (
+        "Given a chat history and the latest user question "
+        "which might reference context in the chat history, "
+        "formulate a standalone question which can be understood "
+        "without the chat history. Do NOT answer the question, just "
+        "reformulate it if needed and otherwise return it as is."
     )
 
-    # vectorstore.similarity_search()
-    print(history)
-    history.append(('human', '{question}'))
+    contextualize_q_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", contextualize_q_system_prompt),
+            MessagesPlaceholder("chat_history"),
+            ("human", "{input}"),
+        ]
+    )
+    history_aware_retriever = create_history_aware_retriever(
+        chat_model, retriever, contextualize_q_prompt
+    )
 
-    prompt = MessagesPlaceholder('history', optional=True)
-    messages = prompt.format_messages(history=history)
+    # Answer question
+    qa_system_prompt = (
+        "You are an assistant for question-answering tasks. Use "
+        "the following pieces of retrieved context to answer the "
+        "question. If you don't know the answer, just say that you "
+        "don't know. Use three sentences maximum and keep the answer "
+        "concise."
+        "\n\n"
+        "{context}"
+    )
+    qa_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", qa_system_prompt),
+            MessagesPlaceholder("chat_history"),
+            ("human", "{input}"),
+        ]
+    )
+    # Below we use create_stuff_documents_chain to feed all retrieved context
+    # into the LLM. Note that we can also use StuffDocumentsChain and other
+    # instances of BaseCombineDocumentsChain.
+    question_answer_chain = create_stuff_documents_chain(chat_model, qa_prompt)
+    rag_chain = create_retrieval_chain(
+        history_aware_retriever, question_answer_chain
+    )
 
-    messages.insert(0, SystemMessage(content=system_msg))
+    # Usage:
+    messages = []
+    messages.append(SystemMessage(content=system_msg))
+    for actor, message in history:
+        if actor == 'ai':
+            messages.append(AIMessage(content=message))
+        else:
+            messages.append(HumanMessage(content=message))
+    chat_history = ChatPromptTemplate(messages)
+    result = rag_chain.invoke({"input": query, "chat_history": chat_history})
 
-    print(messages)
-
-    result = qa_chain.invoke({
-        'chat_history': messages,
-        'question': query,
-    })
-
-    sources = [doc.metadata['source'] for doc in result['source_documents']]
+    sources = [doc.metadata['source'] for doc in result['context']]
     sources = list(set(sources))
     key = ''.join(random.SystemRandom().choice(
                     string.ascii_uppercase + string.digits
