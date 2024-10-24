@@ -4,4 +4,3 @@
 .venv
 supervisord.log
 supervisord.pid
-ingestion/vectorstore

@@ -3,14 +3,13 @@ from dotenv import load_dotenv
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
-
+from tools.vectorstore import load_vector_store
 
 load_dotenv()
 
 embeddings = HuggingFaceEmbeddings(
     model_kwargs={'device': 'cuda'},
-    cache_folder='../.cache'
+    cache_folder='./.cache'
 )
 
 
@@ -37,16 +36,11 @@ def ingest_docs():
     documents = text_splitter.split_documents(raw_documents)
 
     # 4. Save to a vector store
-    docsearch = FAISS.from_documents(documents, embeddings)
-    docsearch.save_local('vectorstore')
+    vector_store = load_vector_store(embeddings)
+    vector_store.save(documents)
 
     # 5. Test the vector store
-    docsearch = FAISS.load_local(
-        'vectorstore',
-        embeddings,
-        allow_dangerous_deserialization=True
-    )
-    results = docsearch.similarity_search('What is React.js?')
+    results = vector_store.search('What is React.js?')
     for index, result in enumerate(results):
         print(f'Source {index + 1}:\n \
             \nTitle: {result.metadata.get('title')} \
